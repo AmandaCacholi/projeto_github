@@ -44,12 +44,12 @@
 
         _atualiza( dados ){
 
-            let divJs = document.querySelector(".js");
+            let divRepos = document.querySelector(".div-repos");
 
             for (let i of dados){
                 let aJs = document.createElement("a");
-                divJs.appendChild(aJs);
-                aJs.innerHTML = `<p>Repositório: <a href="${i.html_url}">${i.name}</a><br>Linguagem: ${i.language}</p>`;
+                divRepos.appendChild(aJs);
+                aJs.innerHTML = `<div><p>Repositório: <a href="${i.html_url}">${i.name}</a><br>Linguagem: ${i.language}</p>`;
             }
 
             this._login = dados[0].owner.login;
@@ -90,6 +90,9 @@
             view.render( addUser );
 
             let removeForm = inputUser.remove();
+
+            let divJs = document.querySelector(".js");
+            divJs.style.background = "white";
             
             busca.textContent = "Pesquisar novamente";
             busca.onclick = function(){
@@ -102,4 +105,9 @@
     let controller = new Controller();
     
     busca.addEventListener( "click", controller.adicionaUser );
+
+    let logoGit = document.querySelector(".img-git");
+    logoGit.addEventListener("click", ()=> {
+        window.location.href="https://github.com/"
+    })
     
