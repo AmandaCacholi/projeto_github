@@ -7,6 +7,7 @@
             this._url = "";
             this._login = "";
             this._image = "";
+            this._repositoriesList = [];
         }
 
         buscaUser(){
@@ -44,16 +45,11 @@
 
         _atualiza( dados ){
 
-            let divRepos = document.querySelector(".div-repos");
-
-            for (let i of dados){
-                let aJs = document.createElement("a");
-                divRepos.appendChild(aJs);
-                aJs.innerHTML = `<div><p>Repositório: <a href="${i.html_url}">${i.name}</a><br>Linguagem: ${i.language}</p>`;
-            }
+            console.log(dados)
 
             this._login = dados[0].owner.login;
             this._image = dados[0].owner.avatar_url;
+            this._repositoriesList = dados
 
         }
 
@@ -63,6 +59,9 @@
         getImage () {
             return this._image;
         }
+        getRepositoriesList () {
+            return this._repositoriesList;
+        }
 
     }
 
@@ -70,12 +69,20 @@
         constructor() {}
 
         render( modelo ){
-
             let userName = document.querySelector(".user");
             let divImg = document.querySelector(".image");
+            let divRepos = document.querySelector(".div-repos");
 
             userName.innerHTML = modelo.getLogin();
             divImg.innerHTML = `<img src=${modelo.getImage()}>`;
+
+            for (let i of modelo.getRepositoriesList()){
+                let aJs = document.createElement("a");
+                divRepos.appendChild(aJs);
+                aJs.innerHTML = `<div><p>Repositório: <a href="${i.html_url}">${i.name}</a><br>Linguagem: ${i.language}</p>`;
+            }
+
+            
         }
     }
 
